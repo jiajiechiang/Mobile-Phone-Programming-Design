@@ -1,0 +1,10 @@
+開啟或關閉 Windows 功能 開啟或關閉 Windows 功能 沒有 VIRTUAL MACHINE PLATFORM
+
+
+步驟：使用命令提示字元強制啟用點擊工作列的搜尋圖示，輸入 cmd。在「命令提示字元」上點擊滑鼠右鍵，選擇「以系統管理員身分執行」。輸入並執行以下指令來開啟虛擬機器平台：cmddism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+請謹慎使用程式碼。如果同時需要安裝 WSL 支援，可順便執行：cmddism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+請謹慎使用程式碼。完成後重新啟動電腦以套用變更。若指令報錯或依然無效，請檢查：BIOS 虛擬化未開啟：開機進入主機板 BIOS/UEFI 設定，確認將 Intel VT-x、AMD-V 或 SVM Mode 設為 Enabled（啟用）。系統檔案受損：以管理員身分執行 sfc /scannow 進行系統修復後再試一次。如果執行指令時出現特定的錯誤代碼或提示，請告訴我，我會幫你針對該錯誤進行排除。
+
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestar
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
