@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>專案 7：藍牙 LED 無線控制 - 教學講義</title>
+    
+<style>
+    :root {
+        --primary: #2563eb;
+        --secondary: #1e40af;
+        --bg: #f8fafc;
+        --card-bg: #ffffff;
+        --text: #1e293b;
+        --text-light: #64748b;
+        --border: #e2e8f0;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        margin: 0;
+        padding: 2rem;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    h1 {
+        color: var(--primary);
+        font-size: 2rem;
+        margin-top: 0;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 0.75rem;
+    }
+    .goal-box {
+        background-color: #eff6ff;
+        border-left: 4px solid var(--primary);
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0 8px 8px 0;
+    }
+    .goal-box h3 {
+        margin: 0 0 0.5rem 0;
+        color: var(--secondary);
+    }
+    .goal-box p {
+        margin: 0;
+        color: #334155;
+    }
+    h2 {
+        color: var(--secondary);
+        font-size: 1.35rem;
+        margin-top: 2rem;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 0.5rem;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0 1.5rem 0;
+    }
+    th, td {
+        border: 1px solid var(--border);
+        padding: 0.75rem 1rem;
+        text-align: left;
+    }
+    th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+    }
+    ul {
+        padding-left: 1.25rem;
+    }
+    li {
+        margin-bottom: 0.5rem;
+    }
+    .footer {
+        margin-top: 3rem;
+        text-align: center;
+        font-size: 0.875rem;
+        color: var(--text-light);
+        border-top: 1px solid var(--border);
+        padding-top: 1rem;
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>專案 7：藍牙 LED 無線控制</h1>
+        
+        <div class="goal-box">
+            <h3>📌 學習目標</h3>
+            <p>學習使用「藍牙客戶端（BluetoothClient）」元件，搜尋並配對藍牙裝置，並透過按鈕遠端傳送字串指令控制硬體開關。</p>
+        </div>
+
+        <h2>一、 畫面編排（Designer 介面設計）</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>元件名稱</th>
+                    <th>類別</th>
+                    <th>屬性修改與說明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>ListPicker1</strong></td><td>清單選擇框</td><td>文字設定為「連線藍牙裝置」，用於彈出已配對的藍牙清單。</td></tr><tr><td><strong>Label_Status</strong></td><td>標籤</td><td>字體大小設為 16，預設文字為「目前狀態：未連線」。</td></tr><tr><td><strong>Button_On</strong></td><td>按鈕</td><td>背景顏色設為綠色，文字設為「開燈 (ON)」。</td></tr><tr><td><strong>Button_Off</strong></td><td>按鈕</td><td>背景顏色設為紅色，文字設為「關燈 (OFF)」。</td></tr><tr><td><strong>BluetoothClient1</strong></td><td>藍牙客戶端</td><td>非可視元件，負責處理手機與藍牙模組的通訊連線。</td></tr>
+            </tbody>
+        </table>
+
+        <h2>二、 程式積木（Blocks 設計步驟）</h2>
+        <ul>
+            <li><strong>取得藍牙清單：</strong>當 ListPicker1.將要選擇 執行 ➔ 設 ListPicker1.元素 為 BluetoothClient1.已配對裝置。</li><li><strong>點選並建立連線：</strong>當 ListPicker1.選擇後 執行 ➔ 呼叫 BluetoothClient1.連線，位址帶入 ListPicker1.選取項目，並將狀態標籤更新為已連線。</li><li><strong>傳送開關燈指令：</strong>當 Button_On.被點選 ➔ 呼叫 BluetoothClient1.傳送文字「H」；當 Button_Off.被點選 ➔ 傳送文字「L」。</li>
+        </ul>
+
+        <div class="footer">
+            MIT App Inventor 2 進階實戰教學講義
+        </div>
+    </div>
+</body>
+</html>

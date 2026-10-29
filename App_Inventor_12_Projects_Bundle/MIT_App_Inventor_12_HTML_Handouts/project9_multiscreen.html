@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>專案 9：多畫面切換生活小幫手 - 教學講義</title>
+    
+<style>
+    :root {
+        --primary: #2563eb;
+        --secondary: #1e40af;
+        --bg: #f8fafc;
+        --card-bg: #ffffff;
+        --text: #1e293b;
+        --text-light: #64748b;
+        --border: #e2e8f0;
+    }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        margin: 0;
+        padding: 2rem;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: var(--card-bg);
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+    h1 {
+        color: var(--primary);
+        font-size: 2rem;
+        margin-top: 0;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 0.75rem;
+    }
+    .goal-box {
+        background-color: #eff6ff;
+        border-left: 4px solid var(--primary);
+        padding: 1rem 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 0 8px 8px 0;
+    }
+    .goal-box h3 {
+        margin: 0 0 0.5rem 0;
+        color: var(--secondary);
+    }
+    .goal-box p {
+        margin: 0;
+        color: #334155;
+    }
+    h2 {
+        color: var(--secondary);
+        font-size: 1.35rem;
+        margin-top: 2rem;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 0.5rem;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0 1.5rem 0;
+    }
+    th, td {
+        border: 1px solid var(--border);
+        padding: 0.75rem 1rem;
+        text-align: left;
+    }
+    th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+    }
+    ul {
+        padding-left: 1.25rem;
+    }
+    li {
+        margin-bottom: 0.5rem;
+    }
+    .footer {
+        margin-top: 3rem;
+        text-align: center;
+        font-size: 0.875rem;
+        color: var(--text-light);
+        border-top: 1px solid var(--border);
+        padding-top: 1rem;
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>專案 9：多畫面切換生活小幫手</h1>
+        
+        <div class="goal-box">
+            <h3>📌 學習目標</h3>
+            <p>學會在 App Inventor 中建立多個畫面（Screen1 首頁、Screen2 計算機、Screen3 記事本），並利用頁面跳轉積木實現多頁面互動。</p>
+        </div>
+
+        <h2>一、 畫面編排（Designer 介面設計）</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>元件名稱</th>
+                    <th>類別</th>
+                    <th>屬性修改與說明</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Screen1 (首頁)</strong></td><td>表單</td><td>放置兩個按鈕：Btn_GoScreen2（文字：進入計算機）與 Btn_GoScreen3（文字：進入記事本）。</td></tr><tr><td><strong>Screen2 (計算機)</strong></td><td>表單</td><td>放置返回首頁按鈕 Btn_Back1 與加法運算相關元件。</td></tr><tr><td><strong>Screen3 (記事本)</strong></td><td>表單</td><td>放置返回首頁按鈕 Btn_Back2 與記事輸入文字框。</td></tr>
+            </tbody>
+        </table>
+
+        <h2>二、 程式積木（Blocks 設計步驟）</h2>
+        <ul>
+            <li><strong>首頁點擊跳轉：</strong>當 Btn_GoScreen2.被點選 ➔ 呼叫「開啟另一個畫面」，畫面名稱帶入文字「Screen2」。同理為 Screen3。</li><li><strong>返回首頁按鈕：</strong>在 Screen2 與 Screen3 中，當返回按鈕被點選 ➔ 呼叫「開啟另一個畫面」，畫面名稱帶入「Screen1」。</li>
+        </ul>
+
+        <div class="footer">
+            MIT App Inventor 2 進階實戰教學講義
+        </div>
+    </div>
+</body>
+</html>
