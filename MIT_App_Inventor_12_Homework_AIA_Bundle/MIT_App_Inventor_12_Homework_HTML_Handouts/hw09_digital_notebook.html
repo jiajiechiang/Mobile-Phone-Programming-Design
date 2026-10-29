@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>專案 9 變化題：多功能個人數位筆記本 (HW09_DigitalNotebook) - 教學講義</title>
+  <style>
+  :root {
+    --primary: #1d4ed8;
+    --primary-dark: #1e3a8a;
+    --accent: #0284c7;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: #cbd5e1;
+    --code-bg: #1e293b;
+    --code-text: #f8fafc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    margin: 0;
+    padding: 2rem 1rem;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    border-top: 6px solid var(--primary);
+  }
+  .badge {
+    display: inline-block;
+    background: #dbeafe;
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    color: var(--primary-dark);
+    font-size: 1.85rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .origin-tag {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .goal-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+    border-left: 5px solid var(--primary);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 2rem;
+  }
+  .goal-box h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+  }
+  .goal-box p { margin: 0; }
+  h2 {
+    color: var(--primary-dark);
+    font-size: 1.35rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--accent);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.75rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f8fafc;
+    color: var(--primary-dark);
+    font-weight: 700;
+  }
+  tr:nth-child(even) td { background-color: #f8fafc; }
+  .steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+  }
+  .steps-list li {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .steps-list strong {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1.25rem 1.5rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .container { box-shadow: none; border: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">Homework 09 ｜ 進階篇變化題</span>
+    <h1>專案 9 變化題：多功能個人數位筆記本 (HW09_DigitalNotebook)</h1>
+    <div class="origin-tag">🔗 延伸自：原專案 9：多畫面切換生活小幫手 ｜ 對應專案檔：<code>HW09_DigitalNotebook.aia</code></div>
+
+    <div class="goal-box">
+      <h3>🎯 變化題設計目標與挑戰</h3>
+      <p>完整實作三畫面（Screen1 導覽首頁、Screen2 記帳累加小工具、Screen3 動態待辦事項清單）的真實互動邏輯，不再只是空白頁面跳轉，而是讓每個子畫面都具備獨立的資料處理功能！</p>
+    </div>
+
+    <h2>一、 畫面編排與元件屬性表（Designer 設計）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 24%;">元件名稱</th>
+          <th style="width: 22%;">元件類別</th>
+          <th>屬性設定與功能說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Screen1 (首頁)</strong></td><td>表單 (Form)</td><td>包含標題 Label_Title、按鈕 Btn_GoScreen2（💰 進入記帳小工具）與 Btn_GoScreen3（📝 進入待辦事項清單）</td></tr><tr><td><strong>Screen2 (記帳頁)</strong></td><td>表單 (Form)</td><td>包含數字輸入框 TextBox_Amount、按鈕 Btn_Add（➕ 新增一筆支出）、總計標籤 Label_Total 與返回按鈕 Btn_Back1</td></tr><tr><td><strong>Screen3 (待辦頁)</strong></td><td>表單 (Form)</td><td>包含文字輸入框 TextBox_Todo、按鈕 Btn_AddTodo（➕ 加入待辦清單）、清單檢視器 ListView1 與返回按鈕 Btn_Back2</td></tr>
+      </tbody>
+    </table>
+
+    <h2>二、 程式積木組裝步驟（Blocks 邏輯設計）</h2>
+    <ul class="steps-list">
+      <li><strong>步驟 1：Screen1 首頁導覽積木</strong>點擊 Btn_GoScreen2 呼叫【開啟另一個畫面 "Screen2"】；點擊 Btn_GoScreen3 呼叫【開啟另一個畫面 "Screen3"】。</li><li><strong>步驟 2：Screen2 記帳累加邏輯</strong>宣告全域變數 `total = 0`。當點擊 Btn_Add 時，將 `global total` 設為 `global total + TextBox_Amount.文字`，並即時更新於 Label_Total 上。</li><li><strong>步驟 3：Screen3 待辦清單邏輯</strong>宣告全域空清單 `todo_list`。當點擊 Btn_AddTodo 時，使用【新增清單項目 (add items to list)】將 TextBox_Todo.文字 加入 `todo_list`，並設 `ListView1.元素 (Elements)` 為 `global todo_list`。</li>
+    </ul>
+
+    <h2>三、 積木邏輯虛擬碼對照（Blocks Logic Overview）</h2>
+    <pre><code>// --- Screen2 (記帳小工具) ---
+initialize global total to 0
+when Btn_Add.Click do
+  set global total to (global total + TextBox_Amount.Text)
+  set Label_Total.Text to join("目前累積總支出：", global total, " 元")
+
+// --- Screen3 (待辦事項清單) ---
+initialize global todo_list to create empty list
+when Btn_AddTodo.Click do
+  add items to list(list: global todo_list, item: TextBox_Todo.Text)
+  set ListView1.Elements to global todo_list</code></pre>
+
+    <div class="footer">
+      MIT App Inventor 2 實戰變化題教學講義 ｜ 支援直接列印或另存為 PDF
+    </div>
+  </div>
+</body>
+</html>

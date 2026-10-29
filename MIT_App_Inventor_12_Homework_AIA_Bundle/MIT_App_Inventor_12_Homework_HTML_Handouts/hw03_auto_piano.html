@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>專案 3 變化題：雙模式小木琴—支援自動播放小星星 (HW03_AutoPiano) - 教學講義</title>
+  <style>
+  :root {
+    --primary: #1d4ed8;
+    --primary-dark: #1e3a8a;
+    --accent: #0284c7;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: #cbd5e1;
+    --code-bg: #1e293b;
+    --code-text: #f8fafc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    margin: 0;
+    padding: 2rem 1rem;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    border-top: 6px solid var(--primary);
+  }
+  .badge {
+    display: inline-block;
+    background: #dbeafe;
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    color: var(--primary-dark);
+    font-size: 1.85rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .origin-tag {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .goal-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+    border-left: 5px solid var(--primary);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 2rem;
+  }
+  .goal-box h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+  }
+  .goal-box p { margin: 0; }
+  h2 {
+    color: var(--primary-dark);
+    font-size: 1.35rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--accent);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.75rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f8fafc;
+    color: var(--primary-dark);
+    font-weight: 700;
+  }
+  tr:nth-child(even) td { background-color: #f8fafc; }
+  .steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+  }
+  .steps-list li {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .steps-list strong {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1.25rem 1.5rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .container { box-shadow: none; border: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">Homework 03 ｜ 基礎篇變化題</span>
+    <h1>專案 3 變化題：雙模式小木琴—支援自動播放小星星 (HW03_AutoPiano)</h1>
+    <div class="origin-tag">🔗 延伸自：原專案 3：七音階迷你電子琴 ｜ 對應專案檔：<code>HW03_AutoPiano.aia</code></div>
+
+    <div class="goal-box">
+      <h3>🎯 變化題設計目標與挑戰</h3>
+      <p>保留原有的 7 個手動彈奏琴鍵（Do ~ Si），額外結合「清單（List）」儲存《小星星》簡譜音檔序列與「計時器（Clock）」循序讀取清單項目，實現點擊「自動播放」即可自動演奏樂曲的功能。</p>
+    </div>
+
+    <h2>一、 畫面編排與元件屬性表（Designer 設計）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 24%;">元件名稱</th>
+          <th style="width: 22%;">元件類別</th>
+          <th>屬性設定與功能說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>HorizontalArrangement1</strong></td><td>水平配置</td><td>寬度：填滿、高度：180 像素（內含 Btn1 ~ Btn7 共 7 個琴鍵按鈕）</td></tr><tr><td><strong>Btn1 ~ Btn7</strong></td><td>按鈕 (Button)</td><td>寬度：45 像素、高度：填滿、文字依序為：「Do, Re, Mi, Fa, Sol, La, Si」</td></tr><tr><td><strong>HorizontalArrangement2</strong></td><td>水平配置</td><td>寬度：填滿、水平對齊：置中（放置自動播放與停止按鈕）</td></tr><tr><td><strong>Button_AutoPlay</strong></td><td>按鈕 (Button)</td><td>字體大小：16、形狀：圓角、文字：「🎵 自動播放小星星」</td></tr><tr><td><strong>Button_StopAuto</strong></td><td>按鈕 (Button)</td><td>字體大小：16、形狀：圓角、文字：「⏹️ 停止播放」</td></tr><tr><td><strong>Label_Note</strong></td><td>標籤 (Label)</td><td>字體大小：18、文字：「目前狀態：手動彈奏或點擊自動播放」</td></tr><tr><td><strong>Sound1</strong></td><td>音效 (Sound)</td><td>非可視元件；素材區已內建 1.wav ~ 7.wav 七個真實音階檔</td></tr><tr><td><strong>Clock1</strong></td><td>計時器 (Clock)</td><td>非可視元件；計時器間隔 (TimerInterval)：500 (0.5秒一拍)、計時器啟用：取消打勾 ⬜</td></tr>
+      </tbody>
+    </table>
+
+    <h2>二、 程式積木組裝步驟（Blocks 邏輯設計）</h2>
+    <ul class="steps-list">
+      <li><strong>步驟 1：建立樂譜清單與索引變數</strong>初始化全域變數【song_notes】為清單：["1.wav", "1.wav", "5.wav", "5.wav", "6.wav", "6.wav", "5.wav", "4.wav", "4.wav", "3.wav", "3.wav", "2.wav", "2.wav", "1.wav"]；並初始化【note_idx】為 1。</li><li><strong>步驟 2：啟動與停止自動播放</strong>當 Button_AutoPlay.被點選：設 global note_idx 為 1，並設 Clock1.TimerEnabled 為 true；當 Button_StopAuto.被點選：設 Clock1.TimerEnabled 為 false。</li><li><strong>步驟 3：計時器循序播音邏輯</strong>當 Clock1.計時 執行：如果 note_idx <= 清單長度(song_notes)，則設 Sound1.來源 為【選取清單項目(song_notes, note_idx)】，呼叫 Sound1.播放，並將 note_idx 加 1；否則關閉計時器並顯示「演奏完成！」。</li>
+    </ul>
+
+    <h2>三、 積木邏輯虛擬碼對照（Blocks Logic Overview）</h2>
+    <pre><code>initialize global song_notes to list("1.wav","1.wav","5.wav","5.wav","6.wav","6.wav","5.wav","4.wav","4.wav","3.wav","3.wav","2.wav","2.wav","1.wav")
+initialize global note_idx to 1
+
+when Button_AutoPlay.Click do
+  set global note_idx to 1
+  set Clock1.TimerEnabled to true
+
+when Clock1.Timer do
+  if (global note_idx <= length of list(global song_notes)) then
+    set Sound1.Source to select list item(list: global song_notes, index: global note_idx)
+    call Sound1.Play()
+    set Label_Note.Text to join("🎵 自動播放小星星：第 ", global note_idx, " 拍")
+    set global note_idx to (global note_idx + 1)
+  else
+    set Clock1.TimerEnabled to false
+    set Label_Note.Text to "🎉 小星星自動演奏完成！" </code></pre>
+
+    <div class="footer">
+      MIT App Inventor 2 實戰變化題教學講義 ｜ 支援直接列印或另存為 PDF
+    </div>
+  </div>
+</body>
+</html>

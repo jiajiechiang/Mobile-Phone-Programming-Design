@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>專案 1 變化題：情緒對話機器人 (HW01_EmotionBot) - 教學講義</title>
+  <style>
+  :root {
+    --primary: #1d4ed8;
+    --primary-dark: #1e3a8a;
+    --accent: #0284c7;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: #cbd5e1;
+    --code-bg: #1e293b;
+    --code-text: #f8fafc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    margin: 0;
+    padding: 2rem 1rem;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    border-top: 6px solid var(--primary);
+  }
+  .badge {
+    display: inline-block;
+    background: #dbeafe;
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    color: var(--primary-dark);
+    font-size: 1.85rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .origin-tag {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .goal-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+    border-left: 5px solid var(--primary);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 2rem;
+  }
+  .goal-box h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+  }
+  .goal-box p { margin: 0; }
+  h2 {
+    color: var(--primary-dark);
+    font-size: 1.35rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--accent);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.75rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f8fafc;
+    color: var(--primary-dark);
+    font-weight: 700;
+  }
+  tr:nth-child(even) td { background-color: #f8fafc; }
+  .steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+  }
+  .steps-list li {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .steps-list strong {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1.25rem 1.5rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .container { box-shadow: none; border: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">Homework 01 ｜ 基礎篇變化題</span>
+    <h1>專案 1 變化題：情緒對話機器人 (HW01_EmotionBot)</h1>
+    <div class="origin-tag">🔗 延伸自：原專案 1：文字發聲器（輸入文字後朗讀） ｜ 對應專案檔：<code>HW01_EmotionBot.aia</code></div>
+
+    <div class="goal-box">
+      <h3>🎯 變化題設計目標與挑戰</h3>
+      <p>在原有文字發聲器的基礎上，加入「下拉選單（Spinner）」提供多種情緒模式（開心、生氣、慢速低沉），並利用 조건判斷（if...else if...else）動態調整語音合成元件的「音調（Pitch）」與「語速（SpeechRate）」，打造出具有情緒表現力的對話機器人。</p>
+    </div>
+
+    <h2>一、 畫面編排與元件屬性表（Designer 設計）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 24%;">元件名稱</th>
+          <th style="width: 22%;">元件類別</th>
+          <th>屬性設定與功能說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Screen1</strong></td><td>表單 (Form)</td><td>水平對齊：置中 (Center: 3)、標題：「HW01 情緒對話機器人」</td></tr><tr><td><strong>Label_Title</strong></td><td>標籤 (Label)</td><td>字體粗體：打勾、字體大小：20、文字：「🤖 請選擇機器人情緒與輸入台詞」</td></tr><tr><td><strong>Spinner_Emotion</strong></td><td>下拉選單 (Spinner)</td><td>元素字串 (ElementsFromString)：「開心,生氣,慢速低沉」（以半形逗號分隔）</td></tr><tr><td><strong>TextBox_Msg</strong></td><td>文字輸入盒 (TextBox)</td><td>寬度：填滿 (Fill parent)、提示：「在此輸入想讓機器人說的話...」、預設文字：「哈囉！很高興認識你！」</td></tr><tr><td><strong>Button_Speak</strong></td><td>按鈕 (Button)</td><td>字體大小：18、形狀：圓角 (rounded)、文字：「🔊 依情緒發音」</td></tr><tr><td><strong>Label_Status</strong></td><td>標籤 (Label)</td><td>字體大小：16、文字顏色：藍色、文字：「目前狀態：待命」</td></tr><tr><td><strong>TextToSpeech1</strong></td><td>語音合成 (TextToSpeech)</td><td>非可視元件（拖入畫面後顯示於下方非可視元件區）</td></tr>
+      </tbody>
+    </table>
+
+    <h2>二、 程式積木組裝步驟（Blocks 邏輯設計）</h2>
+    <ul class="steps-list">
+      <li><strong>步驟 1：建立按鈕點擊事件</strong>從左側「Button_Speak」拉出【當 Button_Speak.被點選 執行】(when Button_Speak.Click do) 褐黃色事件積木。</li><li><strong>步驟 2：加入多條件邏輯判斷</strong>從「控制 (Control)」拉出【如果...那麼...否則如果...否則】(if / else if / else) 積木放入事件內。</li><li><strong>步驟 3：設定「開心」情緒參數</strong>第一層條件判斷【Spinner_Emotion.選取項目 = "開心"】：設定 TextToSpeech1.音調 (Pitch) 為 1.5（高亢）、語速 (SpeechRate) 為 1.3（輕快），並將 Label_Status.文字 設為「😊 開心語氣發音中」。</li><li><strong>步驟 4：設定「生氣」與「慢速低沉」參數</strong>第二層條件判斷【Spinner_Emotion.選取項目 = "生氣"】：設定 Pitch 為 0.6（低沉）、SpeechRate 為 1.2；否則（即慢速低沉）設定 Pitch 為 0.8、SpeechRate 為 0.6。</li><li><strong>步驟 5：呼叫語音朗讀</strong>在 if 判斷積木正下方，接上紫色的【呼叫 TextToSpeech1.發音 訊息】，並將【TextBox_Msg.文字】嵌入訊息缺口中。</li>
+    </ul>
+
+    <h2>三、 積木邏輯虛擬碼對照（Blocks Logic Overview）</h2>
+    <pre><code>when Button_Speak.Click do
+  if (Spinner_Emotion.Selection = "開心") then
+    set TextToSpeech1.Pitch to 1.5
+    set TextToSpeech1.SpeechRate to 1.3
+    set Label_Status.Text to "😊 開心語氣發音中 (高音調+快語速)"
+  else if (Spinner_Emotion.Selection = "生氣") then
+    set TextToSpeech1.Pitch to 0.6
+    set TextToSpeech1.SpeechRate to 1.2
+    set Label_Status.Text to "😠 生氣語氣發音中 (低沉音調)"
+  else
+    set TextToSpeech1.Pitch to 0.8
+    set TextToSpeech1.SpeechRate to 0.6
+    set Label_Status.Text to "🐢 慢速低沉機器人發音中"
+  call TextToSpeech1.Speak(message: TextBox_Msg.Text)</code></pre>
+
+    <div class="footer">
+      MIT App Inventor 2 實戰變化題教學講義 ｜ 支援直接列印或另存為 PDF
+    </div>
+  </div>
+</body>
+</html>

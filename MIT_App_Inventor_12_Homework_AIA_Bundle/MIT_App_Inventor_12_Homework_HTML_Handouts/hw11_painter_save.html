@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>專案 11 變化題：小畫家與作品截圖存檔 (HW11_PainterSave) - 教學講義</title>
+  <style>
+  :root {
+    --primary: #1d4ed8;
+    --primary-dark: #1e3a8a;
+    --accent: #0284c7;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: #cbd5e1;
+    --code-bg: #1e293b;
+    --code-text: #f8fafc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    margin: 0;
+    padding: 2rem 1rem;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    border-top: 6px solid var(--primary);
+  }
+  .badge {
+    display: inline-block;
+    background: #dbeafe;
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    color: var(--primary-dark);
+    font-size: 1.85rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .origin-tag {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .goal-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+    border-left: 5px solid var(--primary);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 2rem;
+  }
+  .goal-box h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+  }
+  .goal-box p { margin: 0; }
+  h2 {
+    color: var(--primary-dark);
+    font-size: 1.35rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--accent);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.75rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f8fafc;
+    color: var(--primary-dark);
+    font-weight: 700;
+  }
+  tr:nth-child(even) td { background-color: #f8fafc; }
+  .steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+  }
+  .steps-list li {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .steps-list strong {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1.25rem 1.5rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .container { box-shadow: none; border: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">Homework 11 ｜ 進階篇變化題</span>
+    <h1>專案 11 變化題：小畫家與作品截圖存檔 (HW11_PainterSave)</h1>
+    <div class="origin-tag">🔗 延伸自：原專案 11：手繪塗鴉板 ｜ 對應專案檔：<code>HW11_PainterSave.aia</code></div>
+
+    <div class="goal-box">
+      <h3>🎯 變化題設計目標與挑戰</h3>
+      <p>在手繪塗鴉板的基礎上，新增「滑動條（Slider）」讓使用者無段調整畫筆線條粗細（1 ~ 30 像素），並加入「💾 存檔」按鈕呼叫畫布的 SaveAs 方法，將創作完成的手繪圖檔直接儲存至手機內部空間。</p>
+    </div>
+
+    <h2>一、 畫面編排與元件屬性表（Designer 設計）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 24%;">元件名稱</th>
+          <th style="width: 22%;">元件類別</th>
+          <th>屬性設定與功能說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>HorizontalArrangement_Slider</strong></td><td>水平配置</td><td>寬度：填滿、垂直對齊：置中</td></tr><tr><td><strong>Label_Size</strong></td><td>標籤 (Label)</td><td>字體大小：16、文字：「畫筆粗細：5」</td></tr><tr><td><strong>Slider_Size</strong></td><td>滑動條 (Slider)</td><td>寬度：填滿、最小值 (MinValue)：1、最大值 (MaxValue)：30、滑塊位置 (ThumbPosition)：5</td></tr><tr><td><strong>Canvas1</strong></td><td>畫布 (Canvas)</td><td>寬度：填滿、高度：300 像素、背景顏色：白色、線條寬度：5</td></tr><tr><td><strong>HorizontalArrangement_Btns</strong></td><td>水平配置</td><td>寬度：填滿，內含 Btn_Red（紅筆）、Btn_Blue（藍筆）、Btn_Clear（清除）、Btn_Save（💾 存檔）</td></tr><tr><td><strong>Label_Status</strong></td><td>標籤 (Label)</td><td>字體大小：14、文字：「狀態：請在畫布上滑動塗鴉」</td></tr>
+      </tbody>
+    </table>
+
+    <h2>二、 程式積木組裝步驟（Blocks 邏輯設計）</h2>
+    <ul class="steps-list">
+      <li><strong>步驟 1：滑桿動態調整畫筆粗細</strong>當 Slider_Size.位置改變 (PositionChanged) 執行：設【Canvas1.線條寬度 (LineWidth)】為 `thumbPosition`，並更新 Label_Size.文字。</li><li><strong>步驟 2：拖曳畫線與換色清除</strong>保留當 Canvas1.被拖曳 時呼叫 DrawLine(prevX, prevY, currentX, currentY)，以及紅筆、藍筆、清除按鈕事件。</li><li><strong>步驟 3：作品另存成 PNG 圖檔</strong>當 Btn_Save.被點選 執行：呼叫帶回傳值的【Canvas1.另存新檔 (SaveAs) 檔名："my_art.png"】，並將回傳的檔案儲存路徑顯示在 Label_Status 上。</li>
+    </ul>
+
+    <h2>三、 積木邏輯虛擬碼對照（Blocks Logic Overview）</h2>
+    <pre><code>when Slider_Size.PositionChanged(thumbPosition) do
+  set Canvas1.LineWidth to thumbPosition
+  set Label_Size.Text to join("畫筆粗細：", thumbPosition)
+
+when Btn_Save.Click do
+  set Label_Status.Text to join(
+    "✅ 已儲存圖檔至：",
+    call Canvas1.SaveAs(fileName: "my_art.png")
+  )</code></pre>
+
+    <div class="footer">
+      MIT App Inventor 2 實戰變化題教學講義 ｜ 支援直接列印或另存為 PDF
+    </div>
+  </div>
+</body>
+</html>

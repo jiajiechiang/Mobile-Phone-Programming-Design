@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>專案 10 變化題：我的常用書籤快速瀏覽器 (HW10_BookmarkBrowser) - 教學講義</title>
+  <style>
+  :root {
+    --primary: #1d4ed8;
+    --primary-dark: #1e3a8a;
+    --accent: #0284c7;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: #cbd5e1;
+    --code-bg: #1e293b;
+    --code-text: #f8fafc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    margin: 0;
+    padding: 2rem 1rem;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    border-top: 6px solid var(--primary);
+  }
+  .badge {
+    display: inline-block;
+    background: #dbeafe;
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    color: var(--primary-dark);
+    font-size: 1.85rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .origin-tag {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .goal-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+    border-left: 5px solid var(--primary);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 2rem;
+  }
+  .goal-box h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+  }
+  .goal-box p { margin: 0; }
+  h2 {
+    color: var(--primary-dark);
+    font-size: 1.35rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--accent);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.75rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f8fafc;
+    color: var(--primary-dark);
+    font-weight: 700;
+  }
+  tr:nth-child(even) td { background-color: #f8fafc; }
+  .steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+  }
+  .steps-list li {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .steps-list strong {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1.25rem 1.5rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .container { box-shadow: none; border: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">Homework 10 ｜ 進階篇變化題</span>
+    <h1>專案 10 變化題：我的常用書籤快速瀏覽器 (HW10_BookmarkBrowser)</h1>
+    <div class="origin-tag">🔗 延伸自：原專案 10：隨身瀏覽器（Web 網頁檢視器） ｜ 對應專案檔：<code>HW10_BookmarkBrowser.aia</code></div>
+
+    <div class="goal-box">
+      <h3>🎯 變化題設計目標與挑戰</h3>
+      <p>在網址列上方新增一排「常用書籤快捷鍵（Google、YouTube、維基百科）」以及具備防呆檢查的「返回上一頁」按鈕，點擊書籤即可秒速跳轉至指定網站，免去在手機螢幕辛苦輸入長網址的困擾。</p>
+    </div>
+
+    <h2>一、 畫面編排與元件屬性表（Designer 設計）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 24%;">元件名稱</th>
+          <th style="width: 22%;">元件類別</th>
+          <th>屬性設定與功能說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>HorizontalArrangement_Bookmarks</strong></td><td>水平配置</td><td>寬度：填滿、水平對齊：置中（放置 4 個書籤與導覽按鈕）</td></tr><tr><td><strong>Btn_Google / Btn_YouTube / Btn_Wiki</strong></td><td>按鈕 (Button)</td><td>文字分別設為：「🔍 Google」、「▶️ YouTube」、「📖 維基百科」</td></tr><tr><td><strong>Btn_Back</strong></td><td>按鈕 (Button)</td><td>文字設為：「⬅️ 上一頁」</td></tr><tr><td><strong>HorizontalArrangement_Url</strong></td><td>水平配置</td><td>寬度：填滿，內含 TextBox_Url 與 Button_Go（前往）</td></tr><tr><td><strong>WebViewer1</strong></td><td>網頁檢視器</td><td>寬度：填滿、高度：填滿、HomeUrl：「https://www.google.com」</td></tr>
+      </tbody>
+    </table>
+
+    <h2>二、 程式積木組裝步驟（Blocks 邏輯設計）</h2>
+    <ul class="steps-list">
+      <li><strong>步驟 1：設定書籤按鈕快速跳轉</strong>當 Btn_Google、Btn_YouTube、Btn_Wiki 被點選時，分別呼叫【WebViewer1.前往網址 (GoToUrl)】，帶入對應的網址字串。</li><li><strong>步驟 2：實作上一頁防呆返回機制</strong>當 Btn_Back.被點選 執行：先用 if 檢查【呼叫 WebViewer1.可以返回上一頁 (CanGoBack)】，若為真才執行【呼叫 WebViewer1.返回上一頁 (GoBack)】。</li><li><strong>步驟 3：保留自訂網址前往功能</strong>當 Button_Go.被點選 執行：呼叫 WebViewer1.GoToUrl(TextBox_Url.文字)。</li>
+    </ul>
+
+    <h2>三、 積木邏輯虛擬碼對照（Blocks Logic Overview）</h2>
+    <pre><code>when Btn_Google.Click do
+  call WebViewer1.GoToUrl(url: "https://www.google.com")
+
+when Btn_YouTube.Click do
+  call WebViewer1.GoToUrl(url: "https://m.youtube.com")
+
+when Btn_Wiki.Click do
+  call WebViewer1.GoToUrl(url: "https://zh.m.wikipedia.org")
+
+when Btn_Back.Click do
+  if (call WebViewer1.CanGoBack()) then
+    call WebViewer1.GoBack()</code></pre>
+
+    <div class="footer">
+      MIT App Inventor 2 實戰變化題教學講義 ｜ 支援直接列印或另存為 PDF
+    </div>
+  </div>
+</body>
+</html>

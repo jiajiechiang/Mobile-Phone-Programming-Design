@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>專案 6 變化題：限時 30 秒打地鼠—含扣分炸彈陷阱 (HW06_BombMole) - 教學講義</title>
+  <style>
+  :root {
+    --primary: #1d4ed8;
+    --primary-dark: #1e3a8a;
+    --accent: #0284c7;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: #cbd5e1;
+    --code-bg: #1e293b;
+    --code-text: #f8fafc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    margin: 0;
+    padding: 2rem 1rem;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    border-top: 6px solid var(--primary);
+  }
+  .badge {
+    display: inline-block;
+    background: #dbeafe;
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    color: var(--primary-dark);
+    font-size: 1.85rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .origin-tag {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .goal-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+    border-left: 5px solid var(--primary);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 2rem;
+  }
+  .goal-box h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+  }
+  .goal-box p { margin: 0; }
+  h2 {
+    color: var(--primary-dark);
+    font-size: 1.35rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--accent);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.75rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f8fafc;
+    color: var(--primary-dark);
+    font-weight: 700;
+  }
+  tr:nth-child(even) td { background-color: #f8fafc; }
+  .steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+  }
+  .steps-list li {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .steps-list strong {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1.25rem 1.5rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .container { box-shadow: none; border: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">Homework 06 ｜ 基礎篇變化題</span>
+    <h1>專案 6 變化題：限時 30 秒打地鼠—含扣分炸彈陷阱 (HW06_BombMole)</h1>
+    <div class="origin-tag">🔗 延伸自：原專案 6：進階打地鼠遊戲 ｜ 對應專案檔：<code>HW06_BombMole.aia</code></div>
+
+    <div class="goal-box">
+      <h3>🎯 變化題設計目標與挑戰</h3>
+      <p>在畫布上同時放入「地鼠（Sprite_Mole）」與「炸彈（Sprite_Bomb）」兩個影像精靈，並配備雙計時器：一個控制精靈每 0.8 秒隨機瞬移，另一個負責 30 秒遊戲倒數。打中地鼠 +1 分，誤觸炸彈扣 2 分並震動警告！</p>
+    </div>
+
+    <h2>一、 畫面編排與元件屬性表（Designer 設計）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 24%;">元件名稱</th>
+          <th style="width: 22%;">元件類別</th>
+          <th>屬性設定與功能說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>HorizontalArrangement1</strong></td><td>水平配置</td><td>寬度：填滿、水平對齊：置中（內含得分與剩餘秒數標籤）</td></tr><tr><td><strong>Label_Score / Label_Timer</strong></td><td>標籤 (Label)</td><td>字體大小：20、粗體：打勾，分別顯示「得分：0」與「剩餘：30秒」</td></tr><tr><td><strong>Canvas1</strong></td><td>畫布 (Canvas)</td><td>寬度：填滿、高度：330 像素、背景顏色：綠色</td></tr><tr><td><strong>Sprite_Mole</strong></td><td>影像精靈 (ImageSprite)</td><td>放進 Canvas1 內；圖片：mole.png、寬高：60x60 像素</td></tr><tr><td><strong>Sprite_Bomb</strong></td><td>影像精靈 (ImageSprite)</td><td>放進 Canvas1 內；圖片：bomb.png、寬高：60x60 像素</td></tr><tr><td><strong>Btn_Restart</strong></td><td>按鈕 (Button)</td><td>字體大小：16、形狀：圓角、文字：「🔄 重新開始 30 秒挑戰」</td></tr><tr><td><strong>Clock_Move / Clock_Countdown</strong></td><td>計時器 (Clock)</td><td>兩個計時器：Clock_Move 間隔 800ms（控制移動），Clock_Countdown 間隔 1000ms（控制 30 秒倒數）</td></tr><tr><td><strong>Sound1</strong></td><td>音效 (Sound)</td><td>非可視元件，誤觸炸彈時震動手機</td></tr>
+      </tbody>
+    </table>
+
+    <h2>二、 程式積木組裝步驟（Blocks 邏輯設計）</h2>
+    <ul class="steps-list">
+      <li><strong>步驟 1：雙精靈隨機移動</strong>當 Clock_Move.計時 執行：分別呼叫 Sprite_Mole.移動到 與 Sprite_Bomb.移動到 隨機座標 (X: 0~240, Y: 0~260)。</li><li><strong>步驟 2：打中地鼠加分 vs 誤觸炸彈扣分</strong>當 Sprite_Mole.被觸碰：global score 加 1 並更新分數標籤；當 Sprite_Bomb.被觸碰：global score 減 2、呼叫 Sound1.震動(300) 並顯示誤觸警告。</li><li><strong>步驟 3：30 秒遊戲限時機制</strong>當 Clock_Countdown.計時 執行：若 time_left > 0 則減 1；否則將 Clock_Move 與 Clock_Countdown 的 TimerEnabled 皆設為 false，停止遊戲。</li>
+    </ul>
+
+    <h2>三、 積木邏輯虛擬碼對照（Blocks Logic Overview）</h2>
+    <pre><code>when Sprite_Mole.Touched do
+  set global score to (global score + 1)
+  set Label_Score.Text to join("得分：", global score)
+
+when Sprite_Bomb.Touched do
+  set global score to (global score - 2)
+  call Sound1.Vibrate(millisecs: 300)
+  set Label_Score.Text to join("💥 誤觸炸彈！得分：", global score)
+
+when Clock_Countdown.Timer do
+  if (global time_left > 0) then
+    set global time_left to (global time_left - 1)
+    set Label_Timer.Text to join("  剩餘：", global time_left, "秒")
+  else
+    set Clock_Move.TimerEnabled to false
+    set Clock_Countdown.TimerEnabled to false
+    set Label_Timer.Text to "  ⏰ 時間到！遊戲結束" </code></pre>
+
+    <div class="footer">
+      MIT App Inventor 2 實戰變化題教學講義 ｜ 支援直接列印或另存為 PDF
+    </div>
+  </div>
+</body>
+</html>

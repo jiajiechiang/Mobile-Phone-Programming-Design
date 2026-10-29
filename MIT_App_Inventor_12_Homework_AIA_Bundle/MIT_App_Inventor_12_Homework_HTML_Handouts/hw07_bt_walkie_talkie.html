@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>專案 7 變化題：藍牙雙向文字對講機 (HW07_BTWalkieTalkie) - 教學講義</title>
+  <style>
+  :root {
+    --primary: #1d4ed8;
+    --primary-dark: #1e3a8a;
+    --accent: #0284c7;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --border: #cbd5e1;
+    --code-bg: #1e293b;
+    --code-text: #f8fafc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    margin: 0;
+    padding: 2rem 1rem;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    border-top: 6px solid var(--primary);
+  }
+  .badge {
+    display: inline-block;
+    background: #dbeafe;
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    color: var(--primary-dark);
+    font-size: 1.85rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .origin-tag {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .goal-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
+    border-left: 5px solid var(--primary);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 2rem;
+  }
+  .goal-box h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+  }
+  .goal-box p { margin: 0; }
+  h2 {
+    color: var(--primary-dark);
+    font-size: 1.35rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--accent);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.75rem;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background-color: #f8fafc;
+    color: var(--primary-dark);
+    font-weight: 700;
+  }
+  tr:nth-child(even) td { background-color: #f8fafc; }
+  .steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+  }
+  .steps-list li {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .steps-list strong {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 1.25rem 1.5rem;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+  .footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .container { box-shadow: none; border: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">Homework 07 ｜ 進階篇變化題</span>
+    <h1>專案 7 變化題：藍牙雙向文字對講機 (HW07_BTWalkieTalkie)</h1>
+    <div class="origin-tag">🔗 延伸自：原專案 7：藍牙 LED 無線控制 ｜ 對應專案檔：<code>HW07_BTWalkieTalkie.aia</code></div>
+
+    <div class="goal-box">
+      <h3>🎯 變化題設計目標與挑戰</h3>
+      <p>除了原有的開關燈指令按鈕外，加入「自訂文字發送框」以及「背景計時器輪詢接收機制（BytesAvailableToReceive）」，讓 App 不僅能發送訊息給 Arduino 或另一支手機，還能即時接收對方傳回來的文字並顯示於畫面上。</p>
+    </div>
+
+    <h2>一、 畫面編排與元件屬性表（Designer 設計）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 24%;">元件名稱</th>
+          <th style="width: 22%;">元件類別</th>
+          <th>屬性設定與功能說明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>ListPicker1</strong></td><td>清單選擇框 (ListPicker)</td><td>文字：「🔍 選擇藍牙裝置連線」</td></tr><tr><td><strong>Label_Status</strong></td><td>標籤 (Label)</td><td>字體大小：16、文字：「目前狀態：未連線」</td></tr><tr><td><strong>HorizontalArrangement1</strong></td><td>水平配置</td><td>寬度：填滿，內含 TextBox_Msg（輸入要傳送的文字）與 Button_Send（📤 傳送）</td></tr><tr><td><strong>HorizontalArrangement2</strong></td><td>水平配置</td><td>寬度：填滿，內含 Button_On（開燈 H）與 Button_Off（關燈 L）</td></tr><tr><td><strong>Label_Receive</strong></td><td>標籤 (Label)</td><td>字體大小：18、文字顏色：藍色、文字：「📥 收到遠端訊息：尚無資料」</td></tr><tr><td><strong>BluetoothClient1</strong></td><td>藍牙客戶端</td><td>非可視元件，處理藍牙雙向序列埠通訊</td></tr><tr><td><strong>Clock_Receive</strong></td><td>計時器 (Clock)</td><td>計時器間隔：500 (每 0.5 秒檢查一次接收緩衝區)、計時器啟用：打勾 ✅</td></tr>
+      </tbody>
+    </table>
+
+    <h2>二、 程式積木組裝步驟（Blocks 邏輯設計）</h2>
+    <ul class="steps-list">
+      <li><strong>步驟 1：配對清單與連線</strong>利用 ListPicker1.將要選擇 載入 BluetoothClient1.AddressesAndNames；在 ListPicker1.選擇後 呼叫 BluetoothClient1.Connect。</li><li><strong>步驟 2：發送自訂文字訊息</strong>當 Button_Send.被點選 執行：呼叫【BluetoothClient1.傳送文字 (SendText)】，參數帶入 TextBox_Msg.文字。</li><li><strong>步驟 3：即時接收遠端藍牙訊息</strong>當 Clock_Receive.計時 執行：檢查【如果 BluetoothClient1.BytesAvailableToReceive > 0】，則將 Label_Receive.文字 設為【BluetoothClient1.ReceiveText(numberOfBytes: BluetoothClient1.BytesAvailableToReceive)】。</li>
+    </ul>
+
+    <h2>三、 積木邏輯虛擬碼對照（Blocks Logic Overview）</h2>
+    <pre><code>when Button_Send.Click do
+  call BluetoothClient1.SendText(text: TextBox_Msg.Text)
+
+when Clock_Receive.Timer do
+  if (call BluetoothClient1.BytesAvailableToReceive() > 0) then
+    set Label_Receive.Text to join(
+      "📥 收到遠端訊息：",
+      call BluetoothClient1.ReceiveText(numberOfBytes: call BluetoothClient1.BytesAvailableToReceive())
+    )</code></pre>
+
+    <div class="footer">
+      MIT App Inventor 2 實戰變化題教學講義 ｜ 支援直接列印或另存為 PDF
+    </div>
+  </div>
+</body>
+</html>
