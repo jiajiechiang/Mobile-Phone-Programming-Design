@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>專案 1：文字發聲器 教學講義</title>
+    <style>
+        body { font-family: 'Microsoft JhengHei', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f8fafc; }
+        .container { background: #ffffff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        h1 { color: #ea580c; border-bottom: 2px solid #fed7aa; padding-bottom: 8px; }
+        h2 { color: #c2410c; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #cbd5e1; padding: 8px 12px; text-align: left; }
+        th { background-color: #ffedd5; color: #9a3412; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 6px; }
+        .footer { margin-top: 30px; text-align: center; font-size: 0.9em; color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MIT App Inventor 2 實戰教學講義</h1>
+        <h2>專案 1：文字發聲器（會說話的哈囉世界）</h2>
+        <p><strong>學習目標：</strong>認識按鈕點擊事件、文字輸入盒，以及呼叫手機內建的「語音合成（TextToSpeech）」模組。</p>
+        
+        <h3>一、 畫面編排（Designer 介面設計）</h3>
+        <table>
+            <tr><th>元件類別</th><th>元件名稱</th><th>屬性設定 / 修改說明</th></tr>
+            <tr><td>使用者介面</td><td><code>Label1</code> (標籤)</td><td>字體大小 22，文字：「請輸入想讓手機說的話」</td></tr>
+            <tr><td>使用者介面</td><td><code>TextBox1</code> (輸入盒)</td><td>寬度：「填滿」，提示文字：「在此輸入文字...」</td></tr>
+            <tr><td>使用者介面</td><td><code>Button1</code> (按鈕)</td><td>字體大小 18，形狀：圓角，文字：「點我發音 🔊」</td></tr>
+            <tr><td>多媒體</td><td><code>TextToSpeech1</code></td><td>非可視元件，負責將文字轉為真人發聲</td></tr>
+        </table>
+
+        <h3>二、 程式積木（Blocks 設計步驟）</h3>
+        <ul>
+            <li><strong>按鈕事件：</strong>從左側 <code>Button1</code> 拉出 <code>when Button1.Click do</code>。</li>
+            <li><strong>畫面同步：</strong>從 <code>Label1</code> 拉出 <code>set Label1.Text to</code>，並接上 <code>TextBox1.Text</code>（將打入的字顯示在標籤上）。</li>
+            <li><strong>語音朗讀：</strong>從 <code>TextToSpeech1</code> 拉出紫色的 <code>call TextToSpeech1.Speak message:</code>，後面接上 <code>TextBox1.Text</code> 即可完成。</li>
+        </ul>
+        <div class="footer">MIT App Inventor 2 教學講義系列 — 專案 1</div>
+    </div>
+</body>
+</html>
